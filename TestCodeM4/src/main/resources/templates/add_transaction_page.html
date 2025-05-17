@@ -10,13 +10,10 @@
             max-width: 600px;
             margin: 0 auto;
         }
-        .btn-cancel {
-            background-color: #6c757d;
-            color: #fff;
-        }
-        .btn-cancel:hover {
-            background-color: #5a6268;
-            color: #fff;
+        .error {
+            color: red;
+            font-size: 0.875em;
+            margin-top: 4px;
         }
     </style>
 </head>
@@ -30,63 +27,56 @@
             <label class="col-sm-4 col-form-label">Tên khách hàng</label>
             <div class="col-sm-8">
                 <select class="form-select" th:field="*{customer}">
-                    <option th:each="c : ${customers}" th:value="${c.id}" th:text="${c.name}"></option>
+                    <option th:each="c : ${customers}" th:value="${c.id}" th:text="${c.name}">Chọn khách hàng</option>
                 </select>
-<!--                <p th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></p>-->
+                <p th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}" class="error"></p>
             </div>
-
         </div>
 
         <div class="row mb-3">
             <label class="col-sm-4 col-form-label">Loại bất động sản</label>
             <div class="col-sm-8 d-flex align-items-center gap-4">
                 <div class="form-check">
-                    <input class="form-check-input"
-                           type="radio"
-                           id="dat"
-                           value="Đất"
-                           th:field="*{type}">
+                    <input class="form-check-input" type="radio" id="dat" value="Đất" th:field="*{type}">
                     <label class="form-check-label" for="dat">Đất</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input"
-                           type="radio"
-                           id="nhadat"
-                           value="Nhà đất"
-                           th:field="*{type}">
+                    <input class="form-check-input" type="radio" id="nhadat" value="Nhà đất" th:field="*{type}">
                     <label class="form-check-label" for="nhadat">Nhà đất</label>
                 </div>
-                <p th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
+            </div>
+            <div class="offset-sm-4 col-sm-8">
+                <p th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="error"></p>
             </div>
         </div>
 
         <div class="row mb-3">
             <label for="date" class="col-sm-4 col-form-label">Ngày giao dịch</label>
             <div class="col-sm-8">
-                <input type="date" class="form-control" id="date" name="date" th:field="*{date}">
-<!--                <p th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></p>-->
+                <input type="date" class="form-control" id="date" th:field="*{date}">
+                <p th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="error"></p>
             </div>
         </div>
 
         <div class="row mb-3">
             <label for="price" class="col-sm-4 col-form-label">Đơn giá (VND)</label>
             <div class="col-sm-8">
-                <input type="number" class="form-control" id="price" name="price" th:field="*{price}">
-                <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+                <input type="number" class="form-control" id="price" th:field="*{price}">
+                <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error"></p>
             </div>
         </div>
 
         <div class="row mb-4">
             <label for="acreage" class="col-sm-4 col-form-label">Diện tích (m²)</label>
             <div class="col-sm-8">
-                <input type="number" class="form-control" id="acreage" name="acreage" th:field="*{acreage}">
-                <p th:if="${#fields.hasErrors('acreage')}" th:errors="*{acreage}"></p>
+                <input type="number" class="form-control" id="acreage" th:field="*{acreage}">
+                <p th:if="${#fields.hasErrors('acreage')}" th:errors="*{acreage}" class="error"></p>
             </div>
         </div>
 
         <div class="text-center">
-            <button type="submit" class="btn btn-primary px-4">Lưu</button>
-            <a th:href="@{/}" class="btn btn-cancel px-4 ms-2">Hủy</a>
+            <button type="submit" class="btn btn-warning me-2">Thêm mới</button>
+            <a th:href="@{/}" class="btn btn-secondary">Quay lại</a>
         </div>
     </form>
 </div>

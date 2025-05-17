@@ -1,7 +1,10 @@
 package com.example.testcodem4.model;
 
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -15,12 +18,16 @@ public class TransactionDTO {
     private String type;
 
     @NotNull(message = "Nhập ngày giao dịch!")
+    @Future(message = "Ngày giao dịch phải sau ngày hiện tại!")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate date;
 
     @NotNull(message = "Nhập giá!")
+    @Min(value = 500000, message = "Giá phải lớn hơn 500.000 VND")
     private Double price;
 
     @NotNull(message = "Nhập diện tích")
+    @Min(value = 21, message = "Diện tích phải lớn hơn 20 m2")
     private Double acreage;
 
     public TransactionDTO() {

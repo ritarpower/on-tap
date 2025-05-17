@@ -4,15 +4,6 @@
     <meta charset="UTF-8">
     <title>Danh sách giao dịch nhà đất</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .action-link {
-            color: red;
-            text-decoration: none;
-        }
-        .action-link:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body class="bg-light p-4">
 
@@ -21,17 +12,17 @@
 
     <div class="mb-3 d-flex justify-content-between align-items-center">
         <a th:href="@{/show-add-transaction}" class="btn btn-success">Thêm mới</a>
-        <div class="d-flex gap-2">
-            <select class="form-select" style="width: 200px;">
-                <option selected>Chọn loại bất động sản</option>
-                <option>Nhà đất</option>
-                <option>Đất</option>
+        <form th:action="@{/find-transaction}" method="get" class="d-flex gap-2">
+            <select class="form-select" name="type" style="width: 200px;">
+                <option value="" selected>Chọn loại bất động sản</option>
+                <option value="Nhà đất">Nhà đất</option>
+                <option value="Đất">Đất</option>
             </select>
-            <input type="text" class="form-control" placeholder="Tên khách hàng" style="width: 200px;">
-            <button class="btn btn-primary">Tìm kiếm</button>
-        </div>
+            <input type="text" class="form-control" name="name" placeholder="Tên khách hàng" style="width: 200px;">
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        </form>
     </div>
-
+    <h3 th:text="${message}" style="color: red"></h3>
     <table class="table table-bordered">
         <thead class="table-light">
         <tr>
@@ -48,11 +39,11 @@
         <tr th:each="t,l : ${transactions}">
             <td th:text="'MGD-' + ${t.id}"></td>
             <td th:text="${t.customer.name}"></td>
-            <td th:text="${t.date}"></td>
+            <td th:text="${t.date != null ? #temporals.format(t.date, 'dd/MM/yyyy') : ''}"></td>
             <td th:text="${t.type}"></td>
             <td th:text="${t.price}"></td>
             <td th:text="${t.acreage}"></td>
-            <td><a href="#">Chi tiết</a></td>
+            <td><a th:href="@{'/show-detail-transaction/'+ ${t.id}}">Chi tiết</a></td>
         </tr>
     </table>
 </div>
